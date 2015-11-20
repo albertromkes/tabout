@@ -6,6 +6,16 @@
 	"engines": {
 		"vscode": "^0.10.1"
 	},
+	"bugs": {
+        "url": "https://github.com/albertromkes/tabout/issues",
+        "email": "albert@rainology.nl"
+    },
+	"homepage": "https://github.com/albertromkes/tabout",
+	"repository": {
+        "type": "git",
+        "url": "https://github.com/albertromkes/tabout.git"
+    },
+	"icon": "images/Tab-Key.jpg",
 	"categories": [
 		"Other"
 	],
