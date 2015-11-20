@@ -3,7 +3,7 @@
 import {window, commands, Disposable, ExtensionContext, StatusBarAlignment, StatusBarItem, TextDocument} from 'vscode';
 import * as vscode from 'vscode';
 import {characterSetsToTabOutFrom} from './charactersToTabOutFrom'
-import {returnHighest, returnLowest, oneNumberIsNegative, getPreviousChar, getNextChar, determineNextSpecialCharPosition} from './utils';
+import {selectNextCharacter, returnHighest, returnLowest, oneNumberIsNegative, getPreviousChar, getNextChar, determineNextSpecialCharPosition} from './utils';
 
 
 export function activate(context: ExtensionContext) {
@@ -28,6 +28,18 @@ export function activate(context: ExtensionContext) {
         //Previous character special?       
         let previousCharacter = getPreviousChar(currentPositionInLine, currentLineText);        
         let characterInfo = characterSetsToTabOutFrom().find(o => o.open == previousCharacter || o.close == previousCharacter)
+        
+        if(characterInfo !== undefined)
+        {
+            
+            let nextCharacter = getNextChar(currentPositionInLine, currentLineText);
+            let indxNext = characterSetsToTabOutFrom().find(o => o.open == nextCharacter || o.close == nextCharacter)
+
+            if(indxNext !== undefined)
+             {
+                 return selectNextCharacter(currentLineText, currentPositionInLine);
+            }
+        }
        
         if (characterInfo !== undefined) {
             //no tab, put selection just before the next special character           
@@ -41,20 +53,12 @@ export function activate(context: ExtensionContext) {
         }
        
         //Next character special?
-        let nextCharacter = getNextChar(currentPositionInLine, currentLineText);//currentLineText.substring(currentPositionInLine+1, currentPositionInLine);
-        let indxNext = characterSetsToTabOutFrom().find(o => o.open == nextCharacter || o.close == nextCharacter)
-        if( indxNext !== undefined)
-        {
-            //no tab, put selection just AFTER the next special character 
-            let nextCursorPosition = new vscode.Position(editor.selection.active.line, currentPositionInLine+1);
-            return editor.selection = new vscode.Selection(nextCursorPosition,nextCursorPosition );    
-        }
-                
-           
-        //Nothing special... just tab
-        vscode.commands.executeCommand("tab");
+        return  selectNextCharacter(currentLineText, currentPositionInLine);
+
 }) 
 }
+
+
 
 
 
