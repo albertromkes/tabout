@@ -9,8 +9,7 @@ import {selectNextCharacter, returnHighest, returnLowest, oneNumberIsNegative, g
 export function activate(context: ExtensionContext) {
 
     console.log('TabOut is active!');
-    
-    characterSetsToTabOutFrom();
+        
     vscode.commands.registerCommand('tabout', () => {        
         
         let editor = window.activeTextEditor;      
@@ -19,8 +18,10 @@ export function activate(context: ExtensionContext) {
             return;
             
         let doc = editor.document; 
-        if (doc.languageId !== "javascript")
+        if (doc.languageId !== "javascript"){
+            commands.executeCommand("tab");
             return;
+        }
                  
         let currentLineText = editor.document.lineAt(editor.selection.active.line).text;
         let currentPositionInLine = editor.selection.active.character;

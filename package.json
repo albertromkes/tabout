@@ -1,7 +1,7 @@
 {
 	"name": "TabOut",
 	"description": "Tab out of quotes, brackets, etc",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"publisher": "albert",
 	"engines": {
 		"vscode": "^0.10.1"
@@ -20,16 +20,15 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onLanguage:javascript"
+		"*"
 	],
 	"main": "./out/src/extension",
-	"contributes": {
+	"contributes": {		
 		"keybindings": [
 			{
 				"command": "tabout",
 				"key":"tab",
-				"mac": "tab"
-				
+				"mac": "tab"				
 			}]
 	},
 	"scripts": {
