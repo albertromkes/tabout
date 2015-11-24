@@ -1,7 +1,7 @@
 {
 	"name": "TabOut",
 	"description": "Tab out of quotes, brackets, etc",
-	"version": "0.0.3",
+	"version": "0.1.0",
 	"publisher": "albert",
 	"engines": {
 		"vscode": "^0.10.1"
@@ -24,6 +24,21 @@
 	],
 	"main": "./out/src/extension",
 	"contributes": {		
+        "configuration": {
+			"type": "object",
+			"title": "TabOut configuration",
+			"properties": {
+				"tabout.disableByDefault": {
+					"type": "boolean",
+					"default": false,
+					"description": "Disables the TabOut extension by default"
+				}
+			}
+		},
+        "commands": [{
+			"command": "toggle-tabout",
+			"title": "Toggle TabOut"
+		}],
 		"keybindings": [
 			{
 				"command": "tabout",

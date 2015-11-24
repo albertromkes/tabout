@@ -8,7 +8,17 @@ import {selectNextCharacter, returnHighest, returnLowest, oneNumberIsNegative, g
 
 export function activate(context: ExtensionContext) {
 
-    console.log('TabOut is active!');
+    let isDisabledByDefault = vscode.workspace.getConfiguration("tabout").get('disableByDefault');
+    context.workspaceState.update("tabout-active", (isDisabledByDefault ? false: true));
+        
+    context.subscriptions.push(
+        vscode.commands.registerCommand('toggle-tabout', () => {            
+            let currentState =  context.workspaceState.get("tabout-active");  
+            context.workspaceState.update("tabout-active", !currentState );
+            window.showInformationMessage("TabOut is " + (!currentState ? "" : " NOT ") + "active");            
+        }),
+        
+ 
         
     vscode.commands.registerCommand('tabout', () => {        
         
@@ -16,9 +26,8 @@ export function activate(context: ExtensionContext) {
          
         if(!editor)
             return;
-            
-        let doc = editor.document; 
-        if (doc.languageId !== "javascript"){
+                    
+        if(!context.workspaceState.get('tabout-active') ){
             commands.executeCommand("tab");
             return;
         }
@@ -57,7 +66,7 @@ export function activate(context: ExtensionContext) {
         return  selectNextCharacter(currentLineText, currentPositionInLine);
 
 }) 
-}
+);
 
 
 
