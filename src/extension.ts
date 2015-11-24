@@ -11,14 +11,13 @@ export function activate(context: ExtensionContext) {
     let isDisabledByDefault = vscode.workspace.getConfiguration("tabout").get('disableByDefault');
     context.workspaceState.update("tabout-active", (isDisabledByDefault ? false: true));
         
-    context.subscriptions.push(
+        context.subscriptions.push(
         vscode.commands.registerCommand('toggle-tabout', () => {            
             let currentState =  context.workspaceState.get("tabout-active");  
             context.workspaceState.update("tabout-active", !currentState );
             window.showInformationMessage("TabOut is " + (!currentState ? "" : " NOT ") + "active");            
         }),
         
- 
         
     vscode.commands.registerCommand('tabout', () => {        
         
@@ -66,12 +65,4 @@ export function activate(context: ExtensionContext) {
         return  selectNextCharacter(currentLineText, currentPositionInLine);
 
 }) 
-);
-
-
-
-
-
-
-
-
+)};
