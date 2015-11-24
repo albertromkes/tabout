@@ -8,7 +8,7 @@ This extension is enabled by default. You can override this behaviour in your se
 	
 You can toggle the extension with the 'Toggle TabOut' command. 
 
-<img src="/images/tabout-command.gif">
+<img src="https://raw.githubusercontent.com/albertromkes/tabout/master/images/tabout-command.gif">
 
 
 
