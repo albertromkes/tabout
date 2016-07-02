@@ -1,11 +1,12 @@
 {
-	"name": "TabOut",
-	"description": "Tab out of quotes, brackets, etc",
-	"version": "0.1.1",
-	"publisher": "albert",
-	"engines": {
-		"vscode": "^0.10.1"
-	},
+    "name": "tabout",
+    "displayName": "TabOut",
+    "description": "Tab out of quotes, brackets, etc",
+    "version": "0.1.2",
+    "publisher": "albert",
+    "engines": {
+        "vscode": "^1.0.0"
+    },
 	"bugs": {
         "url": "https://github.com/albertromkes/tabout/issues",
         "email": "albert@rainology.nl"
@@ -19,12 +20,12 @@
 	"categories": [
 		"Other"
 	],
-	"activationEvents": [
-		"*"
-	],
-	"main": "./out/src/extension",
-	"contributes": {		
-        "configuration": {
+    "activationEvents": [
+        "*"
+    ],
+    "main": "./out/src/extension",
+    "contributes"   : {
+         "configuration": {
 			"type": "object",
 			"title": "TabOut configuration",
 			"properties": {
@@ -39,19 +40,21 @@
 			"command": "toggle-tabout",
 			"title": "Toggle TabOut"
 		}],
-		"keybindings": [
+        "keybindings": [
 			{
 				"command": "tabout",
 				"key":"tab",
-				"mac": "tab"				
+				"mac": "tab",
+                "when": "editorTextFocus && !suggestWidgetVisible"
 			}]
-	},
-	"scripts": {
-		"vscode:prepublish": "node ./node_modules/vscode/bin/compile",
-		"compile": "node ./node_modules/vscode/bin/compile -watch -p ./"
-	},
-	"devDependencies": {
-		"typescript": "^1.6.2",
-		"vscode": "0.10.x"
-	}
+    },
+    "scripts": {
+        "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
+        "compile": "node ./node_modules/vscode/bin/compile -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install"
+    },
+    "devDependencies": {
+        "typescript": "^1.8.5",
+        "vscode": "^0.11.0"
+    }
 }
