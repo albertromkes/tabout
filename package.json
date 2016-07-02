@@ -1,8 +1,8 @@
 {
-    "name": "tabout",
+    "name": "TabOut",
     "displayName": "TabOut",
     "description": "Tab out of quotes, brackets, etc",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "publisher": "albert",
     "engines": {
         "vscode": "^1.0.0"
