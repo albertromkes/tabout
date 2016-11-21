@@ -2,7 +2,7 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-import {window, commands, Disposable, ExtensionContext, StatusBarAlignment, StatusBarItem, TextDocument} from 'vscode';
+import {window, commands, Disposable, ExtensionContext, StatusBarAlignment, StatusBarItem, TextDocument, Selection, Range, Position} from 'vscode';
 import {characterSetsToTabOutFrom} from './charactersToTabOutFrom'
 import {selectNextCharacter, returnHighest, returnLowest, oneNumberIsNegative, getPreviousChar, getNextChar, determineNextSpecialCharPosition} from './utils';
 
@@ -37,6 +37,22 @@ export function activate(context: vscode.ExtensionContext) {
 
         let currentLineText = editor.document.lineAt(editor.selection.active.line).text;
         let currentPositionInLine = editor.selection.active.character;
+
+        if(currentPositionInLine == 0) {
+            commands.executeCommand("tab");
+            return;
+        }
+
+        if(editor.selection.active.character > 0)
+        {
+            var rangeBeforeCurrentPosition = new Range(new Position(editor.selection.active.line, 0), new Position(editor.selection.active.line, currentPositionInLine));
+            var textBeforeCurrentPosition = editor.document.getText(rangeBeforeCurrentPosition);
+            if(textBeforeCurrentPosition.trim() == "")
+            {
+                commands.executeCommand("tab");
+                return;
+            }
+        }
 
          //Previous character special?
         let previousCharacter = getPreviousChar(currentPositionInLine, currentLineText);
