@@ -2,7 +2,7 @@
     "name": "TabOut",
     "displayName": "TabOut",
     "description": "Tab out of quotes, brackets, etc",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "publisher": "albert",
     "engines": {
         "vscode": "^1.0.0"
