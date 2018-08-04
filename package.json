@@ -42,11 +42,17 @@
 		}],
         "keybindings": [
 			{
+				"command": "-tabout",
+				"key":"tab",
+				"mac": "tab",
+				"when": "editorTextFocus && !suggestWidgetVisible"
+			},
+			{
 				"command": "tabout",
 				"key":"tab",
 				"mac": "tab",
-                "when": "editorTextFocus && !suggestWidgetVisible"
-			}]
+				"when": "editorTextFocus && !suggestWidgetVisible && !inSnippetMode && !editorHasMultipleSelections"
+            }]
     },
     "scripts": {
         "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
