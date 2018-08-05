@@ -42,12 +42,6 @@
 		}],
         "keybindings": [
 			{
-				"command": "-tabout",
-				"key":"tab",
-				"mac": "tab",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
 				"command": "tabout",
 				"key":"tab",
 				"mac": "tab",
