@@ -7,46 +7,49 @@
     "engines": {
         "vscode": "^1.0.0"
     },
-	"bugs": {
+    "bugs": {
         "url": "https://github.com/albertromkes/tabout/issues",
         "email": "albert@rainology.nl"
     },
-	"homepage": "https://github.com/albertromkes/tabout",
-	"repository": {
+    "homepage": "https://github.com/albertromkes/tabout",
+    "repository": {
         "type": "git",
         "url": "https://github.com/albertromkes/tabout.git"
     },
-	"icon": "images/Tab-Key.jpg",
-	"categories": [
-		"Other"
-	],
+    "icon": "images/Tab-Key.jpg",
+    "categories": [
+        "Other"
+    ],
     "activationEvents": [
         "*"
     ],
     "main": "./out/src/extension",
-    "contributes"   : {
-         "configuration": {
-			"type": "object",
-			"title": "TabOut configuration",
-			"properties": {
-				"tabout.disableByDefault": {
-					"type": "boolean",
-					"default": false,
-					"description": "Disables the TabOut extension by default"
-				}
-			}
-		},
-        "commands": [{
-			"command": "toggle-tabout",
-			"title": "Toggle TabOut"
-		}],
+    "contributes": {
+        "configuration": {
+            "type": "object",
+            "title": "TabOut configuration",
+            "properties": {
+                "tabout.disableByDefault": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Disables the TabOut extension by default"
+                }
+            }
+        },
+        "commands": [
+            {
+                "command": "toggle-tabout",
+                "title": "Toggle TabOut"
+            }
+        ],
         "keybindings": [
-			{
-				"command": "tabout",
-				"key":"tab",
-				"mac": "tab",
-				"when": "editorTextFocus && !suggestWidgetVisible && !inSnippetMode && !editorHasMultipleSelections"
-            }]
+            {
+                "command": "tabout",
+                "key": "tab",
+                "mac": "tab",
+                "when": "editorTextFocus && !suggestWidgetVisible && !inSnippetMode && !editorHasMultipleSelections"
+            }
+        ]
     },
     "scripts": {
         "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
