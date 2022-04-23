@@ -17,6 +17,7 @@ export function  characterSetsToTabOutFrom() :Array<CharacterSet> {
 	charArray.push(new CharacterSet('.', '.'));
 	charArray.push(new CharacterSet('`', '`'));
 	charArray.push(new CharacterSet(';', ';'));
+	charArray.push(new CharacterSet('%', '%'));
 
 	return charArray
 }
