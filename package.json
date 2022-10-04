@@ -1,68 +1,139 @@
 {
-    "name": "TabOut",
-    "displayName": "TabOut",
-    "description": "Tab out of quotes, brackets, etc",
-    "version": "0.2.1",
-    "publisher": "albert",
-    "engines": {
-        "vscode": "^1.22.0"
-    },
-    "bugs": {
-        "url": "https://github.com/albertromkes/tabout/issues",
-        "email": "albert@rainology.nl"
-    },
-    "homepage": "https://github.com/albertromkes/tabout",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/albertromkes/tabout.git"
-    },
-    "icon": "images/Tab-Key.jpg",
-    "categories": [
-        "Other"
-    ],
-    "activationEvents": [
-        "*"
-    ],
-    "main": "./out/src/extension",
-    "contributes": {
-        "configuration": {
-            "type": "object",
-            "title": "TabOut configuration",
-            "properties": {
-                "tabout.disableByDefault": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Disables the TabOut extension by default"
-                }
-            }
+  "name": "TabOut",
+  "displayName": "TabOut",
+  "description": "Tab out of quotes, brackets, etc",
+  "version": "0.2.1",
+  "publisher": "albert",
+  "engines": {
+    "vscode": "^1.22.0"
+  },
+  "bugs": {
+    "url": "https://github.com/albertromkes/tabout/issues",
+    "email": "albert@rainology.nl"
+  },
+  "homepage": "https://github.com/albertromkes/tabout",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/albertromkes/tabout.git"
+  },
+  "icon": "images/Tab-Key.jpg",
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "*"
+  ],
+  "main": "./out/src/extension",
+  "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "TabOut configuration",
+      "properties": {
+        "tabout.disableByDefault": {
+          "type": "boolean",
+          "default": false,
+          "description": "Disables the TabOut extension by default"
         },
-        "commands": [
+        "tabout.charactersToTabOutFrom": {
+          "type": "array",
+          "description": "Sets of opening and closing character pairs to be able to tab out from.",
+          "default": [
             {
-                "command": "toggle-tabout",
-                "title": "Toggle TabOut"
-            }
-        ],
-        "keybindings": [
+              "open": "[",
+              "close": "]"
+            },
             {
-                "command": "tabout",
-                "key": "tab",
-                "mac": "tab",
-                "when": "editorTextFocus && !suggestWidgetVisible && !inlineSuggestionVisible && !inSnippetMode && !editorHasMultipleSelections"
+              "open": "{",
+              "close": "}"
+            },
+            {
+              "open": "(",
+              "close": ")"
+            },
+            {
+              "open": "'",
+              "close": "'"
+            },
+            {
+              "open": "\"",
+              "close": "\""
+            },
+            {
+              "open": ":",
+              "close": ":"
+            },
+            {
+              "open": "=",
+              "close": "="
+            },
+            {
+              "open": ">",
+              "close": ">"
+            },
+            {
+              "open": "<",
+              "close": "<"
+            },
+            {
+              "open": ".",
+              "close": "."
+            },
+            {
+              "open": "`",
+              "close": "`"
+            },
+            {
+              "open": ";",
+              "close": ";"
             }
-        ]
+          ],
+          "items": {
+            "type": "object",
+            "required": [
+              "open",
+              "close"
+            ],
+            "properties": {
+              "open": {
+                "type": "string",
+                "description": "The opening character of the pair (e.g. for a pair of square brackets, '[')."
+              },
+              "close": {
+                "type": "string",
+                "description": "The closing character of the pair (e.g. for a pair of square brackets, ']')."
+              }
+            }
+          }
+        }
+      }
     },
-    "scripts": {
-        "vscode:prepublish": "tsc -p ./",
-        "compile": "tsc -watch -p ./",
-        "postinstall": "node ./node_modules/vscode/bin/install"
-    },
-    "devDependencies": {
-        "typescript": "4.3.5",
-        "vscode": "1.1.37",
-        "@types/node": "^6.0.40",
-        "@types/mocha": "^2.2.32"
-    },
-    "dependencies": {
-        "minimist": "^1.2.5"
-    }
+    "commands": [
+      {
+        "command": "toggle-tabout",
+        "title": "Toggle TabOut"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "tabout",
+        "key": "tab",
+        "mac": "tab",
+        "when": "editorTextFocus && !suggestWidgetVisible && !inlineSuggestionVisible && !inSnippetMode && !editorHasMultipleSelections"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "tsc -p ./",
+    "compile": "tsc -watch -p ./",
+    "postinstall": "node ./node_modules/vscode/bin/install"
+  },
+  "devDependencies": {
+    "typescript": "4.3.5",
+    "vscode": "1.1.37",
+    "@types/node": "^6.0.40",
+    "@types/mocha": "^2.2.32"
+  },
+  "dependencies": {
+    "minimist": "^1.2.5"
+  }
 }
