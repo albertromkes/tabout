@@ -134,6 +134,6 @@
     "@types/mocha": "^2.2.32"
   },
   "dependencies": {
-    "minimist": "^1.2.5"
+    "minimist": "^1.2.6"
   }
 }
