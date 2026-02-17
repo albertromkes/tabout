@@ -4,7 +4,7 @@
 
 import * as assert from 'assert';
 import * as vscode from 'vscode';
-import { returnHighest, returnLowest, oneNumberIsNegative, getPreviousChar, getNextChar, selectNextCharacter, selectPreviousCharacter, determineNextSpecialCharPosition } from '../src/utils';
+import { returnHighest, returnLowest, oneNumberIsNegative, getPreviousChar, getNextChar, selectNextCharacter, selectPreviousCharacter, determineNextSpecialCharPosition, findNextSpecialPositionAcrossLines } from '../src/utils';
 
 suite("Utils Tests", () => {
 
@@ -108,5 +108,29 @@ suite("Utils Tests", () => {
 
         assert.equal(mock.__state.lastCommand, 'outdent');
         assert.equal(mock.window.activeTextEditor.selection.active.character, 2);
+    });
+
+    test("findNextSpecialPositionAcrossLines finds nearest special character on later lines", () => {
+        const lines = [
+            'if (something) {',
+            '  doThing();',
+            '}'
+        ];
+
+        const next = findNextSpecialPositionAcrossLines(lines, 0, 10);
+        assert.equal(next?.line, 1);
+        assert.equal(next?.character, 9);
+    });
+
+    test("findNextSpecialPositionAcrossLines respects max lines to scan", () => {
+        const lines = [
+            'start',
+            'middle',
+            'still middle',
+            '}'
+        ];
+
+        const next = findNextSpecialPositionAcrossLines(lines, 0, 2);
+        assert.equal(next, undefined);
     });
 });

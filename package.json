@@ -41,6 +41,12 @@
           "default": true,
           "description": "Enable Shift+Tab to jump back to the previous TabOut character."
         },
+        "tabout.maxLinesToScanForMultilineTabOut": {
+          "type": "number",
+          "default": 50,
+          "minimum": 1,
+          "description": "Maximum number of subsequent lines to scan when tabbing out from end-of-line to a later closing character."
+        },
         "tabout.charactersToTabOutFrom": {
           "type": "array",
           "description": "Sets of opening and closing character pairs to be able to tab out from.",

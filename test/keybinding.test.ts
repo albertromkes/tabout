@@ -47,5 +47,9 @@ suite('Keybinding Guards Tests', () => {
         assert.equal(commands.indexOf('tabout-reverse'), -1, 'tabout-reverse should not be shown as a separate command');
         assert.ok(commands.indexOf('toggle-tabout-reverse-shift-tab') > -1,
             'toggle command for reverse Shift+Tab setting should exist');
+
+        const maxLinesSetting = packageJson.contributes.configuration.properties['tabout.maxLinesToScanForMultilineTabOut'];
+        assert.ok(maxLinesSetting, 'tabout.maxLinesToScanForMultilineTabOut setting should exist');
+        assert.equal(maxLinesSetting.default, 50);
     });
 });

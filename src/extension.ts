@@ -4,7 +4,7 @@
 import * as vscode from 'vscode';
 import {window, commands, Disposable, ExtensionContext, StatusBarAlignment, StatusBarItem, TextDocument, Selection, Range, Position} from 'vscode';
 import {characterSetsToTabOutFrom} from './charactersToTabOutFrom'
-import {selectNextCharacter, selectPreviousCharacter, getPreviousChar, getNextChar, determineNextSpecialCharPosition} from './utils';
+import {selectNextCharacter, selectPreviousCharacter, getPreviousChar, getNextChar, determineNextSpecialCharPosition, findNextSpecialPositionAcrossLines} from './utils';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -104,6 +104,24 @@ export function activate(context: vscode.ExtensionContext) {
                 return editor.selection = new vscode.Selection(nextCursorPosition, nextCursorPosition);
 
              }
+
+            // At end of line, optionally search on later lines (issue #47)
+            if(currentPositionInLine >= currentLineText.length)
+            {
+                let maxLinesToScan = vscode.workspace.getConfiguration('tabout').get<number>('maxLinesToScanForMultilineTabOut', 50);
+                let lines:string[] = [];
+                for(let i = 0; i < editor.document.lineCount; i++)
+                {
+                    lines.push(editor.document.lineAt(i).text);
+                }
+
+                let nextPosition = findNextSpecialPositionAcrossLines(lines, editor.selection.active.line, maxLinesToScan);
+                if(nextPosition !== undefined)
+                {
+                    let nextCursorPosition = new vscode.Position(nextPosition.line, nextPosition.character);
+                    return editor.selection = new vscode.Selection(nextCursorPosition, nextCursorPosition);
+                }
+            }
         }
 
         //Next character special?

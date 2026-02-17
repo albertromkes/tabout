@@ -2,6 +2,11 @@ import {CharacterSet} from './CharacterSet'
 import {characterSetsToTabOutFrom} from './charactersToTabOutFrom'
 import {window, Position, Selection, commands} from 'vscode';
 
+export interface CursorTarget {
+    line: number,
+    character: number
+}
+
 export function returnHighest(num1:number, num2:number) : number
 {
     return num1 > num2 ? num1: num2;
@@ -103,4 +108,36 @@ export function selectPreviousCharacter(text:string, position:number)
 
     // Default Shift+Tab behavior
     commands.executeCommand("outdent");
+}
+
+export function findNextSpecialPositionAcrossLines(lines:string[], startLine:number, maxLinesToScan:number = 50): CursorTarget | undefined
+{
+    if(startLine < 0 || startLine >= lines.length - 1)
+        return undefined;
+
+    const specials = new Set<string>();
+    for (let set of characterSetsToTabOutFrom())
+    {
+        specials.add(set.open);
+        specials.add(set.close);
+    }
+
+    let lastLineToCheck = Math.min(lines.length - 1, startLine + maxLinesToScan);
+    for(let lineNumber = startLine + 1; lineNumber <= lastLineToCheck; lineNumber++)
+    {
+        let lineText = lines[lineNumber];
+        for(let ch = 0; ch < lineText.length; ch++)
+        {
+            let char = lineText.substring(ch, ch + 1);
+            if(specials.has(char))
+            {
+                return {
+                    line: lineNumber,
+                    character: ch
+                };
+            }
+        }
+    }
+
+    return undefined;
 }
