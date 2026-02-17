@@ -44,5 +44,7 @@ suite("Utils Tests", () => {
         assert.equal(getNextChar(1, "abc"), "c");
         assert.equal(getNextChar(4, "hello world"), " ");
         assert.equal(getNextChar(9, "hello world"), "d");
+        assert.equal(getNextChar(2, "abc"), "");
+        assert.equal(getNextChar(0, "a"), "");
     });
 });

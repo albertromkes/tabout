@@ -24,7 +24,7 @@ export function getPreviousChar(currentPosition:number, text:string): string
 
 export function getNextChar(currentPosition:number, text:string): string
 {
-    return text.substring(currentPosition+1, currentPosition);
+    return text.substring(currentPosition+1, currentPosition+2);
 }
 
 export function determineNextSpecialCharPosition(charInfo: CharacterSet, text:string, position: number) : number
