@@ -4,7 +4,7 @@
 
 import * as assert from 'assert';
 import * as vscode from 'vscode';
-import { returnHighest, returnLowest, oneNumberIsNegative, getPreviousChar, getNextChar, selectNextCharacter } from '../src/utils';
+import { returnHighest, returnLowest, oneNumberIsNegative, getPreviousChar, getNextChar, selectNextCharacter, determineNextSpecialCharPosition } from '../src/utils';
 
 suite("Utils Tests", () => {
 
@@ -61,5 +61,24 @@ suite("Utils Tests", () => {
 
         assert.equal(mock.window.activeTextEditor.selection.active.character, 6);
         assert.equal(mock.__state.lastCommand, null);
+    });
+
+    test("selectNextCharacter falls back to normal tab when next char is not special", () => {
+        const text = 'abc';
+        const mock = vscode as any;
+        mock.window.activeTextEditor.selection = {
+            active: { line: 0, character: 1 }
+        };
+        mock.__state.lastCommand = null;
+
+        selectNextCharacter(text, 1);
+
+        assert.equal(mock.__state.lastCommand, 'tab');
+        assert.equal(mock.window.activeTextEditor.selection.active.character, 1);
+    });
+
+    test("determineNextSpecialCharPosition finds next close quote", () => {
+        const position = determineNextSpecialCharPosition({ open: '"', close: '"' } as any, '"abc"', 1);
+        assert.equal(position, 4);
     });
 });
