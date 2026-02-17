@@ -36,6 +36,11 @@
           "default": false,
           "description": "Disables the TabOut extension by default"
         },
+        "tabout.enableReverseShiftTab": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable Shift+Tab to jump back to the previous TabOut character."
+        },
         "tabout.charactersToTabOutFrom": {
           "type": "array",
           "description": "Sets of opening and closing character pairs to be able to tab out from.",
@@ -113,6 +118,10 @@
       {
         "command": "toggle-tabout",
         "title": "Toggle TabOut"
+      },
+      {
+        "command": "toggle-tabout-reverse-shift-tab",
+        "title": "TabOut: Toggle Reverse Shift+Tab"
       }
     ],
     "keybindings": [
@@ -121,6 +130,12 @@
         "key": "tab",
         "mac": "tab",
         "when": "editorTextFocus && !editorHasSelection && !editorHasMultipleSelections && !suggestWidgetVisible && !inlineSuggestionVisible && !inlineEditIsVisible"
+      },
+      {
+        "command": "tabout-reverse",
+        "key": "shift+tab",
+        "mac": "shift+tab",
+        "when": "config.tabout.enableReverseShiftTab && editorTextFocus && !editorHasSelection && !editorHasMultipleSelections && !suggestWidgetVisible && !inlineSuggestionVisible && !inlineEditIsVisible"
       }
     ]
   },

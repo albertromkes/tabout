@@ -4,7 +4,7 @@
 import * as vscode from 'vscode';
 import {window, commands, Disposable, ExtensionContext, StatusBarAlignment, StatusBarItem, TextDocument, Selection, Range, Position} from 'vscode';
 import {characterSetsToTabOutFrom} from './charactersToTabOutFrom'
-import {selectNextCharacter, returnHighest, returnLowest, oneNumberIsNegative, getPreviousChar, getNextChar, determineNextSpecialCharPosition} from './utils';
+import {selectNextCharacter, selectPreviousCharacter, getPreviousChar, getNextChar, determineNextSpecialCharPosition} from './utils';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -18,6 +18,31 @@ export function activate(context: vscode.ExtensionContext) {
             let currentState =  context.workspaceState.get("tabout-active");
             context.workspaceState.update("tabout-active", !currentState );
             window.showInformationMessage("TabOut is " + (!currentState ? "" : " NOT ") + "active");
+        }));
+
+    context.subscriptions.push(
+        vscode.commands.registerCommand('toggle-tabout-reverse-shift-tab', async () => {
+            let taboutConfiguration = vscode.workspace.getConfiguration('tabout');
+            let currentReverseEnabled = taboutConfiguration.get<boolean>('enableReverseShiftTab', true);
+            await taboutConfiguration.update('enableReverseShiftTab', !currentReverseEnabled, true);
+            window.showInformationMessage("TabOut reverse Shift+Tab is " + (!currentReverseEnabled ? "" : " NOT ") + "active");
+        }));
+
+    context.subscriptions.push(
+        vscode.commands.registerCommand('tabout-reverse', () => {
+            let editor = window.activeTextEditor;
+            if(!editor)
+                return;
+
+            let currentLineText = editor.document.lineAt(editor.selection.active.line).text;
+            let currentPositionInLine = editor.selection.active.character;
+
+            if(currentPositionInLine == 0)
+            {
+                return commands.executeCommand("outdent");
+            }
+
+            return selectPreviousCharacter(currentLineText, currentPositionInLine);
         }));
 
 
