@@ -1,0 +1,48 @@
+//
+// Tests for utils.ts functions
+//
+
+import * as assert from 'assert';
+import { returnHighest, returnLowest, oneNumberIsNegative, getPreviousChar, getNextChar } from '../src/utils';
+
+suite("Utils Tests", () => {
+
+    test("returnHighest returns the higher number", () => {
+        assert.equal(returnHighest(5, 3), 5);
+        assert.equal(returnHighest(3, 5), 5);
+        assert.equal(returnHighest(5, 5), 5);
+        assert.equal(returnHighest(-1, 3), 3);
+        assert.equal(returnHighest(0, -5), 0);
+    });
+
+    test("returnLowest returns the lower number", () => {
+        assert.equal(returnLowest(5, 3), 3);
+        assert.equal(returnLowest(3, 5), 3);
+        assert.equal(returnLowest(5, 5), 5);
+        assert.equal(returnLowest(-1, 3), -1);
+        assert.equal(returnLowest(0, -5), -5);
+    });
+
+    test("oneNumberIsNegative detects negative numbers", () => {
+        assert.equal(oneNumberIsNegative(-1, 5), true);
+        assert.equal(oneNumberIsNegative(5, -1), true);
+        assert.equal(oneNumberIsNegative(-1, -1), true);
+        assert.equal(oneNumberIsNegative(0, 5), false);
+        assert.equal(oneNumberIsNegative(5, 0), false);
+        assert.equal(oneNumberIsNegative(0, 0), false);
+    });
+
+    test("getPreviousChar returns character before position", () => {
+        assert.equal(getPreviousChar(1, "abc"), "a");
+        assert.equal(getPreviousChar(2, "abc"), "b");
+        assert.equal(getPreviousChar(5, "hello world"), "o");
+        assert.equal(getPreviousChar(0, "abc"), "");
+    });
+
+    test("getNextChar returns character after position", () => {
+        assert.equal(getNextChar(0, "abc"), "b");
+        assert.equal(getNextChar(1, "abc"), "c");
+        assert.equal(getNextChar(4, "hello world"), " ");
+        assert.equal(getNextChar(9, "hello world"), "d");
+    });
+});
