@@ -3,7 +3,8 @@
 //
 
 import * as assert from 'assert';
-import { returnHighest, returnLowest, oneNumberIsNegative, getPreviousChar, getNextChar } from '../src/utils';
+import * as vscode from 'vscode';
+import { returnHighest, returnLowest, oneNumberIsNegative, getPreviousChar, getNextChar, selectNextCharacter } from '../src/utils';
 
 suite("Utils Tests", () => {
 
@@ -46,5 +47,19 @@ suite("Utils Tests", () => {
         assert.equal(getNextChar(10, "hello world"), "d");
         assert.equal(getNextChar(3, "abc"), "");
         assert.equal(getNextChar(1, "a"), "");
+    });
+
+    test("quote regression: second tab jumps over closing quote", () => {
+        const text = '"dfdf"';
+        const mock = vscode as any;
+        mock.window.activeTextEditor.selection = {
+            active: { line: 0, character: 5 }
+        };
+        mock.__state.lastCommand = null;
+
+        selectNextCharacter(text, 5);
+
+        assert.equal(mock.window.activeTextEditor.selection.active.character, 6);
+        assert.equal(mock.__state.lastCommand, null);
     });
 });

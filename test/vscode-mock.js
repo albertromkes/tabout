@@ -12,9 +12,14 @@ class Selection {
   }
 }
 
+const state = {
+  lastCommand: null
+};
+
 module.exports = {
   Position,
   Selection,
+  __state: state,
   window: {
     activeTextEditor: {
       selection: {
@@ -23,11 +28,14 @@ module.exports = {
     }
   },
   commands: {
-    executeCommand: () => Promise.resolve()
+    executeCommand: (command) => {
+      state.lastCommand = command;
+      return Promise.resolve();
+    }
   },
   workspace: {
     getConfiguration: () => ({
-      get: () => []
+      get: (_key, defaultValue) => defaultValue
     })
   }
 };
