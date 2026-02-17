@@ -118,7 +118,7 @@
         "command": "tabout",
         "key": "tab",
         "mac": "tab",
-        "when": "editorTextFocus && !suggestWidgetVisible && !inlineSuggestionVisible && !inlineEditIsVisible && !editorHasMultipleSelections"
+        "when": "editorTextFocus && !editorHasSelection && !editorHasMultipleSelections && !suggestWidgetVisible && !inlineSuggestionVisible && !inlineEditIsVisible"
       }
     ]
   },
