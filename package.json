@@ -115,10 +115,6 @@
         "title": "Toggle TabOut"
       },
       {
-        "command": "tabout-force-tab",
-        "title": "TabOut: Force Normal Tab"
-      },
-      {
         "command": "tabout-reverse",
         "title": "TabOut: Reverse (Move Back In)"
       }
@@ -128,6 +124,12 @@
         "command": "tabout",
         "key": "tab",
         "mac": "tab",
+        "when": "editorTextFocus && !editorHasSelection && !editorHasMultipleSelections && !suggestWidgetVisible && !inlineSuggestionVisible && !inlineEditIsVisible"
+      },
+      {
+        "command": "tabout-reverse",
+        "key": "shift+tab",
+        "mac": "shift+tab",
         "when": "editorTextFocus && !editorHasSelection && !editorHasMultipleSelections && !suggestWidgetVisible && !inlineSuggestionVisible && !inlineEditIsVisible"
       }
     ]

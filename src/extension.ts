@@ -21,11 +21,6 @@ export function activate(context: vscode.ExtensionContext) {
         }));
 
     context.subscriptions.push(
-        vscode.commands.registerCommand('tabout-force-tab', () => {
-            return commands.executeCommand("tab");
-        }));
-
-    context.subscriptions.push(
         vscode.commands.registerCommand('tabout-reverse', () => {
             let editor = window.activeTextEditor;
             if(!editor)

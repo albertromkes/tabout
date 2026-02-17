@@ -29,12 +29,12 @@ suite('Keybinding Guards Tests', () => {
         assert.ok(when.includes('!inlineEditIsVisible'), 'should skip TabOut while inline edit is visible');
     });
 
-    test('phase 3 commands are contributed for force-tab and reverse navigation', () => {
+    test('shift+tab is bound to tabout-reverse', () => {
         const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
         const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
 
-        const commands = packageJson.contributes.commands.map((c: any) => c.command);
-        assert.ok(commands.indexOf('tabout-force-tab') > -1, 'should contribute tabout-force-tab command');
-        assert.ok(commands.indexOf('tabout-reverse') > -1, 'should contribute tabout-reverse command');
+        const reverseBinding = packageJson.contributes.keybindings.find((k: any) => k.command === 'tabout-reverse');
+        assert.ok(reverseBinding, 'tabout-reverse keybinding should exist');
+        assert.equal(reverseBinding.key, 'shift+tab');
     });
 });

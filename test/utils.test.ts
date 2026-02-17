@@ -82,21 +82,21 @@ suite("Utils Tests", () => {
         assert.equal(position, 4);
     });
 
-    test("selectPreviousCharacter moves cursor left into pair when previous char is special", () => {
-        const text = '"dfdf"';
+    test("selectPreviousCharacter jumps to previous special char", () => {
+        const text = 'a"bc(d)e"f';
         const mock = vscode as any;
         mock.window.activeTextEditor.selection = {
-            active: { line: 0, character: 6 }
+            active: { line: 0, character: 9 }
         };
         mock.__state.lastCommand = null;
 
-        selectPreviousCharacter(text, 6);
+        selectPreviousCharacter(text, 9);
 
-        assert.equal(mock.window.activeTextEditor.selection.active.character, 5);
+        assert.equal(mock.window.activeTextEditor.selection.active.character, 8);
         assert.equal(mock.__state.lastCommand, null);
     });
 
-    test("selectPreviousCharacter falls back to outdent when previous char is not special", () => {
+    test("selectPreviousCharacter falls back to outdent when no previous special char exists", () => {
         const text = 'abc';
         const mock = vscode as any;
         mock.window.activeTextEditor.selection = {
