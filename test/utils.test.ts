@@ -4,7 +4,7 @@
 
 import * as assert from 'assert';
 import * as vscode from 'vscode';
-import { returnHighest, returnLowest, oneNumberIsNegative, getPreviousChar, getNextChar, selectNextCharacter, determineNextSpecialCharPosition } from '../src/utils';
+import { returnHighest, returnLowest, oneNumberIsNegative, getPreviousChar, getNextChar, selectNextCharacter, selectPreviousCharacter, determineNextSpecialCharPosition } from '../src/utils';
 
 suite("Utils Tests", () => {
 
@@ -80,5 +80,33 @@ suite("Utils Tests", () => {
     test("determineNextSpecialCharPosition finds next close quote", () => {
         const position = determineNextSpecialCharPosition({ open: '"', close: '"' } as any, '"abc"', 1);
         assert.equal(position, 4);
+    });
+
+    test("selectPreviousCharacter moves cursor left into pair when previous char is special", () => {
+        const text = '"dfdf"';
+        const mock = vscode as any;
+        mock.window.activeTextEditor.selection = {
+            active: { line: 0, character: 6 }
+        };
+        mock.__state.lastCommand = null;
+
+        selectPreviousCharacter(text, 6);
+
+        assert.equal(mock.window.activeTextEditor.selection.active.character, 5);
+        assert.equal(mock.__state.lastCommand, null);
+    });
+
+    test("selectPreviousCharacter falls back to outdent when previous char is not special", () => {
+        const text = 'abc';
+        const mock = vscode as any;
+        mock.window.activeTextEditor.selection = {
+            active: { line: 0, character: 2 }
+        };
+        mock.__state.lastCommand = null;
+
+        selectPreviousCharacter(text, 2);
+
+        assert.equal(mock.__state.lastCommand, 'outdent');
+        assert.equal(mock.window.activeTextEditor.selection.active.character, 2);
     });
 });

@@ -113,6 +113,14 @@
       {
         "command": "toggle-tabout",
         "title": "Toggle TabOut"
+      },
+      {
+        "command": "tabout-force-tab",
+        "title": "TabOut: Force Normal Tab"
+      },
+      {
+        "command": "tabout-reverse",
+        "title": "TabOut: Reverse (Move Back In)"
       }
     ],
     "keybindings": [

@@ -73,3 +73,18 @@ export function selectNextCharacter(text:string, position:number)
         //Default
         commands.executeCommand("tab");
 }
+
+export function selectPreviousCharacter(text:string, position:number)
+{
+    let previousCharacter = getPreviousChar(position, text);
+    let indxPrevious = characterSetsToTabOutFrom().find(o => o.open == previousCharacter || o.close == previousCharacter)
+    if( indxPrevious !== undefined)
+    {
+        // no outdent, put selection just BEFORE the previous special character
+        let previousCursorPosition = new Position(window.activeTextEditor.selection.active.line, position-1);
+        return window.activeTextEditor.selection = new Selection(previousCursorPosition,previousCursorPosition );
+    }
+
+    // Default Shift+Tab behavior
+    commands.executeCommand("outdent");
+}
