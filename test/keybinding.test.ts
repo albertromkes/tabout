@@ -45,5 +45,7 @@ suite('Keybinding Guards Tests', () => {
 
         const commands = packageJson.contributes.commands.map((c: any) => c.command);
         assert.equal(commands.indexOf('tabout-reverse'), -1, 'tabout-reverse should not be shown as a separate command');
+        assert.ok(commands.indexOf('toggle-tabout-reverse-shift-tab') > -1,
+            'toggle command for reverse Shift+Tab setting should exist');
     });
 });

@@ -21,6 +21,14 @@ export function activate(context: vscode.ExtensionContext) {
         }));
 
     context.subscriptions.push(
+        vscode.commands.registerCommand('toggle-tabout-reverse-shift-tab', async () => {
+            let taboutConfiguration = vscode.workspace.getConfiguration('tabout');
+            let currentReverseEnabled = taboutConfiguration.get<boolean>('enableReverseShiftTab', true);
+            await taboutConfiguration.update('enableReverseShiftTab', !currentReverseEnabled, true);
+            window.showInformationMessage("TabOut reverse Shift+Tab is " + (!currentReverseEnabled ? "" : " NOT ") + "active");
+        }));
+
+    context.subscriptions.push(
         vscode.commands.registerCommand('tabout-reverse', () => {
             let editor = window.activeTextEditor;
             if(!editor)

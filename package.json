@@ -118,6 +118,10 @@
       {
         "command": "toggle-tabout",
         "title": "Toggle TabOut"
+      },
+      {
+        "command": "toggle-tabout-reverse-shift-tab",
+        "title": "TabOut: Toggle Reverse Shift+Tab"
       }
     ],
     "keybindings": [
