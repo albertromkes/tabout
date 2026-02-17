@@ -39,12 +39,12 @@ suite("Utils Tests", () => {
         assert.equal(getPreviousChar(0, "abc"), "");
     });
 
-    test("getNextChar returns character after position", () => {
-        assert.equal(getNextChar(0, "abc"), "b");
-        assert.equal(getNextChar(1, "abc"), "c");
-        assert.equal(getNextChar(4, "hello world"), " ");
-        assert.equal(getNextChar(9, "hello world"), "d");
-        assert.equal(getNextChar(2, "abc"), "");
-        assert.equal(getNextChar(0, "a"), "");
+    test("getNextChar returns character at cursor position (to the right of cursor)", () => {
+        assert.equal(getNextChar(0, "abc"), "a");
+        assert.equal(getNextChar(1, "abc"), "b");
+        assert.equal(getNextChar(4, "hello world"), "o");
+        assert.equal(getNextChar(10, "hello world"), "d");
+        assert.equal(getNextChar(3, "abc"), "");
+        assert.equal(getNextChar(1, "a"), "");
     });
 });
