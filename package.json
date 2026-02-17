@@ -21,7 +21,9 @@
     "Other"
   ],
   "activationEvents": [
-    "*"
+    "onCommand:tabout",
+    "onCommand:toggle-tabout",
+    "onStartupFinished"
   ],
   "main": "./out/src/extension",
   "contributes": {

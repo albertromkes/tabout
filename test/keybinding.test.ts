@@ -3,6 +3,17 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 suite('Keybinding Guards Tests', () => {
+    test('activation events avoid wildcard startup activation', () => {
+        const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
+        const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+
+        const activationEvents = packageJson.activationEvents as string[];
+        assert.ok(Array.isArray(activationEvents), 'activationEvents should be an array');
+        assert.equal(activationEvents.indexOf('*'), -1, 'activationEvents should not use wildcard activation');
+        assert.ok(activationEvents.indexOf('onCommand:tabout') > -1, 'tabout command should activate extension');
+        assert.ok(activationEvents.indexOf('onCommand:toggle-tabout') > -1, 'toggle command should activate extension');
+    });
+
     test('tabout keybinding includes selection and suggestion safety guards', () => {
         const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
         const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
