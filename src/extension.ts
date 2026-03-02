@@ -46,7 +46,7 @@ export function activate(context: vscode.ExtensionContext) {
         }));
 
 
-     let tabout = vscode.commands.registerCommand('tabout', () => {
+     let tabout = vscode.commands.registerCommand('tabout', async () => {
         // The code you place here will be executed every time your command is executed
         let editor = window.activeTextEditor;
 
@@ -76,6 +76,31 @@ export function activate(context: vscode.ExtensionContext) {
             {
                 commands.executeCommand("tab");
                 return;
+            }
+        }
+
+        // In snippet mode, allow choosing between snippet placeholder navigation and TabOut behavior.
+        let snippetTabBehavior = vscode.workspace.getConfiguration('tabout').get<string>('snippetTabBehavior', 'preferSnippetNavigation');
+        if(snippetTabBehavior === 'preferSnippetNavigation')
+        {
+            try
+            {
+                let inSnippetMode = await commands.executeCommand<boolean>('getContextKeyValue', 'inSnippetMode');
+                if(inSnippetMode === true)
+                {
+                    let previousPosition = editor.selection.active;
+                    await commands.executeCommand('jumpToNextSnippetPlaceholder');
+
+                    // If snippet navigation moved the cursor, keep native snippet behavior.
+                    if(editor.selection.active.line !== previousPosition.line || editor.selection.active.character !== previousPosition.character)
+                    {
+                        return;
+                    }
+                }
+            }
+            catch
+            {
+                // If context lookup fails, fall back to current TabOut behavior.
             }
         }
 

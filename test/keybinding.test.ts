@@ -47,5 +47,12 @@ suite('Keybinding Guards Tests', () => {
         assert.equal(commands.indexOf('tabout-reverse'), -1, 'tabout-reverse should not be shown as a separate command');
         assert.ok(commands.indexOf('toggle-tabout-reverse-shift-tab') > -1,
             'toggle command for reverse Shift+Tab setting should exist');
+
+        const snippetBehaviorSetting = packageJson.contributes.configuration.properties['tabout.snippetTabBehavior'];
+        assert.ok(snippetBehaviorSetting, 'tabout.snippetTabBehavior setting should exist');
+        assert.equal(snippetBehaviorSetting.default, 'preferSnippetNavigation');
+        assert.ok(Array.isArray(snippetBehaviorSetting.enum), 'snippet behavior should define enum values');
+        assert.ok(snippetBehaviorSetting.enum.indexOf('preferSnippetNavigation') > -1);
+        assert.ok(snippetBehaviorSetting.enum.indexOf('preferTabOut') > -1);
     });
 });
