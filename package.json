@@ -41,6 +41,19 @@
           "default": true,
           "description": "Enable Shift+Tab to jump back to the previous TabOut character."
         },
+        "tabout.snippetTabBehavior": {
+          "type": "string",
+          "default": "preferSnippetNavigation",
+          "enum": [
+            "preferSnippetNavigation",
+            "preferTabOut"
+          ],
+          "markdownEnumDescriptions": [
+            "In snippet mode, use **Tab** to move to the next snippet placeholder first. If there is no next placeholder, TabOut behavior applies.",
+            "Always prioritize TabOut behavior, including while in snippet mode."
+          ],
+          "description": "Controls how Tab behaves while snippet mode is active."
+        },
         "tabout.charactersToTabOutFrom": {
           "type": "array",
           "description": "Sets of opening and closing character pairs to be able to tab out from.",
