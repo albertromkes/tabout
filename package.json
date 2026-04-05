@@ -129,7 +129,7 @@
         "command": "tabout",
         "key": "tab",
         "mac": "tab",
-        "when": "editorTextFocus && !editorHasSelection && !editorHasMultipleSelections && !suggestWidgetVisible && !inlineSuggestionVisible && !inlineEditIsVisible"
+        "when": "editorTextFocus && !inSnippetMode && !hasSnippetCompletions && !editorHasSelection && !editorHasMultipleSelections && !suggestWidgetVisible && !inlineSuggestionVisible && !inlineEditIsVisible"
       },
       {
         "command": "tabout-reverse",
